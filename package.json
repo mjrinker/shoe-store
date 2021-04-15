@@ -1,6 +1,15 @@
 {
   "name": "react-state-building-script",
   "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjrinker/shoe-store.git"
+  },
+  "keywords": [],
+  "author": "Matt Rinker",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -13,7 +22,22 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^6.0.0-beta.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^4.0.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.23.0",
+    "eslint-config-mjrinker": "file:../../eslint-config-mjrinker",
+    "eslint-config-mjrinker-react": "file:../../eslint-config-mjrinker-react",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^32.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-radar": "^0.2.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
+    "eslint-plugin-unicorn": "^29.0.0"
   },
   "scripts": {
     "start": "run-p start-app start-api",
@@ -22,9 +46,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [

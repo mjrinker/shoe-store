@@ -1,33 +1,40 @@
-import React from "react";
-import "./App.css";
-import Footer from "./Footer";
-import Header from "./Header";
+import React from 'react';
 
-export default function App() {
-  // function renderProduct(p) {
-  //   return (
-  //     <div key={p.id} className="product">
-  //       <a href="/">
-  //         <img src={`/images/${p.image}`} alt={p.name} />
-  //         <h3>{p.name}</h3>
-  //         <p>${p.price}</p>
-  //       </a>
-  //     </div>
-  //   );
-  // }
+import './App.css';
+import Footer from './Footer';
+import Header from './Header';
+
+const App = () => {
+/*
+ * const renderProduct = (product) => (
+ *   <div
+ *     className='product'
+ *     key={product.id}
+ *   >
+ *     <a href='/'>
+ *       <img
+ *         alt={product.name}
+ *         src={`/images/${product.image}`}
+ *       />
+ *       <h3>{product.name}</h3>
+ *       <p>${product.price}</p>
+ *     </a>
+ *   </div>
+ * );
+ */
 
   return (
     <>
-      <div className="content">
+      <div className='content'>
         <Header />
         <main>
-          <section id="filters">
-            <label htmlFor="size">Filter by Size:</label>{" "}
-            <select id="size">
-              <option value="">All sizes</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
+          <section id='filters'>
+            <label htmlFor='size'>Filter by Size:</label>{' '}
+            <select id='size'>
+              <option value=''>All sizes</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
             </select>
           </section>
         </main>
@@ -35,4 +42,6 @@ export default function App() {
       <Footer />
     </>
   );
-}
+};
+
+export default App;

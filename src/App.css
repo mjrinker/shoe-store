@@ -3,13 +3,13 @@ html {
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #364147;
   font-family: open sans, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  margin: 0;
-  padding: 0;
-  color: #364147;
-  background-color: #fff;
 }
 
 #root {
@@ -38,11 +38,11 @@ nav {
 }
 
 footer {
-  text-align: center;
-  color: gray;
-  padding: 20px 0 20px 0;
   flex-shrink: 0;
+  padding: 20px 0 20px 0;
   background-color: gainsboro;
+  color: gray;
+  text-align: center;
 }
 
 header ul {
@@ -61,8 +61,8 @@ header li {
 #price {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-weight: normal;
   font-size: 1.5em;
+  font-weight: normal;
 }
 
 #products {
@@ -127,33 +127,33 @@ h3 {
 }
 
 img {
+  border: 0;
   max-width: 100%;
   height: auto;
-  border: 0;
   vertical-align: middle;
 }
 
 .btn-primary {
-  color: #fff;
   background-color: #364147;
+  color: #fff;
 }
 
 .btn {
   display: inline-block;
   margin-bottom: 0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 6px 12px;
+  background-image: none;
+  font-size: 14px;
   font-weight: 400;
+  line-height: 1.42857143;
   text-align: center;
   vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  border-radius: 3px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -163,11 +163,11 @@ img {
 .btn.disabled,
 .btn[disabled],
 fieldset[disabled] .btn {
-  cursor: not-allowed;
+  box-shadow: none;
   opacity: 0.65;
   filter: alpha(opacity=65);
+  cursor: not-allowed;
   -webkit-box-shadow: none;
-  box-shadow: none;
 }
 
 p[role="alert"] {
@@ -188,28 +188,28 @@ form > div {
   margin-bottom: 20px;
 }
 
-.lds-container {
+.loader-container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.lds-dual-ring {
+.loader-dual-ring {
   display: inline-block;
   width: 80px;
   height: 80px;
 }
-.lds-dual-ring:after {
+.loader-dual-ring:after {
   content: " ";
   display: block;
+  margin: 8px;
+  border: 6px solid #cef;
+  border-radius: 50%;
+  border-color: #cef transparent #cef transparent;
   width: 64px;
   height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #cef;
-  border-color: #cef transparent #cef transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
+  animation: loader-dual-ring 1.2s linear infinite;
 }
-@keyframes lds-dual-ring {
+@keyframes loader-dual-ring {
   0% {
     transform: rotate(0deg);
   }
