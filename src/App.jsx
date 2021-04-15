@@ -7,18 +7,37 @@ import './App.css';
 import Footer from './Footer';
 import { getProducts } from './services/productService';
 import Header from './Header';
+import Spinner from './Spinner';
 
 const App = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [size, setSize] = useState('');
 
   useEffect(() => {
-    getProducts('shoes').then((response) => setProducts(response));
+    (async () => {
+      try {
+        setProducts(await getProducts('shoes'));
+      } catch (requestError) {
+        setError(requestError);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const filteredProducts = size
     ? products.filter((product) => product.skus.find((sku) => `${sku.size}` === size))
     : products;
+
+  if (error) {
+    throw error;
+  }
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <>

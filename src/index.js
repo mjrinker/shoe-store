@@ -2,5 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
+import ErrorBoundary from './ErrorBoundary';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(
+  (
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  ),
+  document.querySelector('#root'),
+);
