@@ -1,31 +1,21 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useState } from 'react';
 
 import './App.css';
 import Footer from './Footer';
-import { getProducts } from './services/productService';
 import Header from './Header';
 import Spinner from './Spinner';
+import useFetch from './services/useFetch';
+
+const category = 'shoes';
 
 const App = () => {
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
   const [size, setSize] = useState('');
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setProducts(await getProducts('shoes'));
-      } catch (requestError) {
-        setError(requestError);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const {
+    data: products,
+    error,
+    loading,
+  } = useFetch(`/products?category=${category}`);
 
   const filteredProducts = size
     ? products.filter((product) => product.skus.find((sku) => `${sku.size}` === size))
@@ -56,7 +46,9 @@ const App = () => {
               <option value='8'>8</option>
               <option value='9'>9</option>
             </select>
-            {<h4>Showing {filteredProducts.length} of {products.length} products.</h4>}
+            <h4>
+              Showing {filteredProducts.length} of {products.length} products.
+            </h4>
           </section>
           <section id='products'>
             {filteredProducts.map((product) => (

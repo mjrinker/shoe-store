@@ -1,6 +1,6 @@
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const getShippingAddress = async (userId) => fetch(`${baseUrl}shippingAddress/${userId}`).then((response) => {
+const getShippingAddress = async (userId) => fetch(`${baseUrl}/shippingAddress/${userId}`).then((response) => {
   if (response.ok) {
     return response.json();
   }
@@ -8,7 +8,7 @@ const getShippingAddress = async (userId) => fetch(`${baseUrl}shippingAddress/${
   throw response;
 });
 
-const saveShippingAddress = async (address) => fetch(`${baseUrl}shippingAddress`, {
+const saveShippingAddress = async (address) => fetch(`${baseUrl}/shippingAddress`, {
   body: JSON.stringify(address),
   headers: { 'Content-Type': 'application/json' },
   method: 'POST',
