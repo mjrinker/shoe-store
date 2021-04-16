@@ -21,7 +21,10 @@ const useFetch = (route) => {
           throw response;
         }
       } catch (requestError) {
-        setError(requestError);
+        const newError = new Error(requestError || {});
+        newError.message = requestError?.statusText || 'Internal Server Error';
+        newError.name = `${newError.message.replaceAll(' ', '').replace(/error$/i, '')}Error`;
+        setError(newError);
       } finally {
         setLoading(false);
       }
