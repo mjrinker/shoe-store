@@ -13,17 +13,17 @@ const useFetch = (route) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(baseUrl + route);
+        const response = await fetch(`${baseUrl}${route}`);
         if (response.ok) {
           const json = await response.json();
           setData(json);
         } else {
-          throw response;
+          const requestError = new Error(response || {});
+          requestError.message = response?.statusText || 'Internal Server Error';
+          requestError.name = `${requestError.message.replaceAll(' ', '').replace(/error$/i, '')}Error`;
+          throw requestError;
         }
       } catch (requestError) {
-        const newError = new Error(requestError || {});
-        newError.message = requestError?.statusText || 'Internal Server Error';
-        newError.name = `${newError.message.replaceAll(' ', '').replace(/error$/i, '')}Error`;
         setError(newError);
       } finally {
         setLoading(false);

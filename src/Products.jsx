@@ -44,9 +44,18 @@ const Products = () => {
           value={size}
         >
           <option value=''>All sizes</option>
-          <option value='7'>7</option>
-          <option value='8'>8</option>
-          <option value='9'>9</option>
+          {[
+            ...new Set(
+              products.flatMap((product) => product.skus.map(({ size }) => size)),
+            ),
+          ].map((size) => (
+            <option
+              key={size}
+              value={size}
+            >
+              {size}
+            </option>
+          ))}
         </select>
         <h4>
           Showing {filteredProducts.length} of {products.length} products.

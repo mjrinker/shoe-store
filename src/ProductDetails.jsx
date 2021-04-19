@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   useNavigate,
   useParams,
@@ -8,9 +8,10 @@ import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
 import useFetch from './services/useFetch';
 
-const ProductDetails = () => {
-  const { id } = useParams();
+const ProductDetails = ({ addToCart }) => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [sku, setSKU] = useState('');
 
   const {
     data: product,
@@ -35,10 +36,32 @@ const ProductDetails = () => {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p id='price'>${product.price}</p>
+      <select
+        id='sku'
+        onChange={(event) => setSKU(event.target.value)}
+        value={sku}
+      >
+        <option value=''>What size?</option>
+        {product.skus.map(({
+          size,
+          sku,
+        }) => (
+          <option
+            key={sku}
+            value={sku}
+          >
+            {size}
+          </option>
+        ))}
+      </select>
       <p>
         <button
           className='btn btn-primary'
-          onClick={() => navigate('/cart')}
+          disabled={!sku}
+          onClick={() => {
+            addToCart(id, sku);
+            navigate('/cart');
+          }}
           type='button'
         >
           Add to Cart
