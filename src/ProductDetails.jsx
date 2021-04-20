@@ -6,9 +6,9 @@ import {
 
 import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
-import useFetch from './services/useFetch';
+import useFetch from './hooks/useFetch';
 
-const ProductDetails = ({ addToCart }) => {
+const ProductDetails = ({ dispatch }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [sku, setSKU] = useState('');
@@ -59,7 +59,11 @@ const ProductDetails = ({ addToCart }) => {
           className='btn btn-primary'
           disabled={!sku}
           onClick={() => {
-            addToCart(id, sku);
+            dispatch({
+              id,
+              sku,
+              type: 'add',
+            });
             navigate('/cart');
           }}
           type='button'

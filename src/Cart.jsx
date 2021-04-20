@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Spinner from './Spinner';
-import useFetchAll from './services/useFetchAll';
+import useFetchAll from './hooks/useFetchAll';
 
 const Cart = ({
   cart,
-  updateQuantity,
+  dispatch,
 }) => {
   const navigate = useNavigate();
   const routes = cart.map((index) => `/products/${index.id}`);
@@ -39,7 +39,11 @@ const Cart = ({
           <p>
             <select
               aria-label={`Select quantity for ${name} size ${size}`}
-              onChange={(event) => updateQuantity(sku, Number.parseInt(event.target.value, 10))}
+              onChange={(event) => dispatch({
+                quantity: Number.parseInt(event.target.value, 10),
+                sku,
+                type: 'update',
+              })}
               value={quantity}
             >
               <option value='0'>Remove</option>

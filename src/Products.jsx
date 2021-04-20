@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
-import useFetch from './services/useFetch';
+import useFetch from './hooks/useFetch';
 
 const Products = () => {
   const [size, setSize] = useState('');

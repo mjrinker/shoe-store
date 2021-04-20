@@ -15,7 +15,7 @@ const emptyAddress = {
   country: '',
 };
 
-const Checkout = ({ emptyCart }) => {
+const Checkout = ({ dispatch }) => {
   const [address, setAddress] = useState(emptyAddress);
   const [saveError, setSaveError] = useState(null);
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -49,7 +49,7 @@ const Checkout = ({ emptyCart }) => {
     if (isValid) {
       try {
         await saveShippingAddress(address);
-        emptyCart();
+        dispatch({ type: 'empty' });
         setStatus(STATUS.COMPLETED);
       } catch (error) {
         setSaveError(error);
