@@ -6,9 +6,11 @@ import {
 
 import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
+import { useCart } from './contexts/cartContext';
 import useFetch from './hooks/useFetch';
 
-const ProductDetails = ({ dispatch }) => {
+const ProductDetails = () => {
+  const { dispatch } = useCart();
   const navigate = useNavigate();
   const { id } = useParams();
   const [sku, setSKU] = useState('');

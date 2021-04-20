@@ -3,13 +3,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
+import { CartProvider } from './contexts/cartContext';
 import ErrorBoundary from './ErrorBoundary';
 
 ReactDOM.render(
   (
     <ErrorBoundary>
       <BrowserRouter>
-        <App />
+        <CartProvider>
+          <App />
+        </CartProvider>
       </BrowserRouter>
     </ErrorBoundary>
   ),

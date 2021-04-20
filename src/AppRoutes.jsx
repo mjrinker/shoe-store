@@ -9,10 +9,7 @@ import Checkout from './Checkout';
 import ProductDetails from './ProductDetails';
 import Products from './Products';
 
-const AppRoutes = ({
-  cart,
-  dispatch,
-}) => (
+const AppRoutes = ({ dispatch }) => (
   <Routes>
     <Route
       element={<h1>Welcome to Carved Rock Fitness!</h1>}
@@ -23,15 +20,12 @@ const AppRoutes = ({
       path='/:category'
     />
     <Route
-      element={<ProductDetails dispatch={dispatch} />}
+      element={<ProductDetails />}
       path='/:category/:id'
     />
     <Route
       element={(
-        <Cart
-          cart={cart}
-          dispatch={dispatch}
-        />
+        <Cart />
       )}
       path='/cart'
     />

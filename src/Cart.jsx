@@ -2,12 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Spinner from './Spinner';
+import { useCart } from './contexts/cartContext';
 import useFetchAll from './hooks/useFetchAll';
 
-const Cart = ({
-  cart,
-  dispatch,
-}) => {
+const Cart = () => {
+  const {
+    cart,
+    dispatch,
+  } = useCart();
   const navigate = useNavigate();
   const routes = cart.map((index) => `/products/${index.id}`);
   const {
