@@ -90,6 +90,7 @@ const Checkout = () => {
           <label htmlFor='city'>City</label>
           <br />
           <input
+            aria-label='Enter shipping city'
             id='city'
             onBlur={handleBlur}
             onChange={handleChange}
@@ -105,6 +106,7 @@ const Checkout = () => {
           <label htmlFor='country'>Country</label>
           <br />
           <select
+            aria-label='Select shipping country'
             id='country'
             onBlur={handleBlur}
             onChange={handleChange}
@@ -123,6 +125,7 @@ const Checkout = () => {
 
         <div>
           <input
+            aria-label='Save shipping info'
             className='btn btn-primary'
             disabled={status === STATUS.SUBMITTING}
             type='submit'

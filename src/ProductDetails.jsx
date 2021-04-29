@@ -38,7 +38,9 @@ const ProductDetails = () => {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p id='price'>${product.price}</p>
+      {/* eslint-disable-next-line jsx-a11y/no-onchange */}
       <select
+        aria-label='Select size'
         id='sku'
         onChange={(event) => setSKU(event.target.value)}
         value={sku}

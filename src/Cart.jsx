@@ -39,6 +39,7 @@ const Cart = () => {
           <p>${price}</p>
           <p>Size: {size}</p>
           <p>
+            {/* eslint-disable-next-line jsx-a11y/no-onchange */}
             <select
               aria-label={`Select quantity for ${name} size ${size}`}
               onChange={(event) => dispatch({
