@@ -7,8 +7,8 @@ import {
 } from 'formik';
 import React, { useState } from 'react';
 
-import { saveShippingAddress } from './services/shippingService';
-import { useCart } from './contexts/cartContext';
+import { saveShippingAddress } from '../services/shippingService';
+import { useCart } from '../contexts/cartContext';
 
 const STATUS = {
   COMPLETED: 'COMPLETED',

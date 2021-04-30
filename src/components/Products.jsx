@@ -5,7 +5,8 @@ import {
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { get } from './hooks/useFetch';
+import { get } from '../hooks/useFetch';
+
 import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
 

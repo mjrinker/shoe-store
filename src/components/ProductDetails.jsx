@@ -1,17 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
 
+import { useCart } from '../contexts/cartContext';
 import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
-import useFetch from './hooks/useFetch';
+import useFetch from '../hooks/useFetch';
 
-const ProductDetails = ({ addToCart }) => {
+const ProductDetails = () => {
+  const { dispatch } = useCart();
   const navigate = useNavigate();
   const { id } = useParams();
-  const skuRef = useRef();
+  const [sku, setSKU] = useState('');
 
   const {
     data: product,
@@ -36,9 +38,12 @@ const ProductDetails = ({ addToCart }) => {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p id='price'>${product.price}</p>
+      {/* eslint-disable-next-line jsx-a11y/no-onchange */}
       <select
+        aria-label='Select size'
         id='sku'
-        ref={skuRef}
+        value={sku}
+        onChange={(event) => setSKU(event.target.value)}
       >
         <option value=''>What size?</option>
         {product.skus.map(({
@@ -56,15 +61,16 @@ const ProductDetails = ({ addToCart }) => {
       <p>
         <button
           className='btn btn-primary'
+          disabled={!sku}
+          type='button'
           onClick={() => {
-            const sku = skuRef.current.value;
-            if (!sku) {
-              return alert('Select size.');
-            }
-            addToCart(id, sku);
+            dispatch({
+              id,
+              sku,
+              type: 'add',
+            });
             navigate('/cart');
           }}
-          type='button'
         >
           Add to Cart
         </button>
