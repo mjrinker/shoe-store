@@ -3,10 +3,11 @@ import {
   useParams,
 } from 'react-router-dom';
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 
+import { get } from './hooks/useFetch';
 import PageNotFound from './PageNotFound';
 import Spinner from './Spinner';
-import useFetch from './hooks/useFetch';
 
 const Products = () => {
   const [size, setSize] = useState('');
@@ -15,8 +16,10 @@ const Products = () => {
   const {
     data: products,
     error,
-    loading,
-  } = useFetch(`/products?category=${category}`);
+    isLoading,
+  } = useQuery(['products', `/products?category=${category}`], get);
+
+  console.info('products', products);
 
   const filteredProducts = size
     ? products.filter((product) => product.skus.find((sku) => `${sku.size}` === size))
@@ -26,7 +29,7 @@ const Products = () => {
     throw error;
   }
 
-  if (loading) {
+  if (isLoading) {
     return <Spinner />;
   }
 
@@ -38,10 +41,11 @@ const Products = () => {
     <>
       <section id='filters'>
         <label htmlFor='size'>Filter by Size:</label>{' '}
+        {/* eslint-disable-next-line jsx-a11y/no-onchange */}
         <select
           id='size'
-          onChange={(event) => setSize(event.target.value)}
           value={size}
+          onChange={(event) => setSize(event.target.value)}
         >
           <option value=''>All sizes</option>
           {[

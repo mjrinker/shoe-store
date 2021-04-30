@@ -6,6 +6,19 @@ import {
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
+const get = async (context) => {
+  const [, route] = context.queryKey;
+  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}${route}`);
+  if (response.ok) {
+    return response.json();
+  }
+
+  const requestError = new Error(response || {});
+  requestError.message = response?.statusText || 'Internal Server Error';
+  requestError.name = `${requestError.message.replaceAll(' ', '').replace(/error$/i, '')}Error`;
+  throw requestError;
+};
+
 const useFetch = (route) => {
   const isMounted = useRef(false);
   const [data, setData] = useState(null);
@@ -52,3 +65,4 @@ const useFetch = (route) => {
 };
 
 export default useFetch;
+export { get };

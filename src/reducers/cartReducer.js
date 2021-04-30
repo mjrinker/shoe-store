@@ -1,43 +1,36 @@
-const getItemsWithUpdatedQuantity = (items, sku, quantity, increment = false) => {
-  if (quantity === 0) {
-    return items.filter((item) => item.sku !== sku);
-  }
+import { produce } from 'immer';
 
-  return items.map((item) => {
-    if (item.sku === sku) {
-      return {
-        ...item,
-        quantity: increment ? item.quantity + quantity : quantity,
-      };
+const updateItemQuantity = (cart, {
+  id,
+  quantity,
+  sku,
+}, increment = false) => produce(cart, (draft) => {
+  const itemIndex = cart.findIndex((item) => item.sku === sku);
+  const itemInCart = itemIndex > -1; // eslint-disable-line no-magic-numbers
+  if (itemInCart) {
+    if (quantity === 0) {
+      delete draft[itemIndex];
+    } else {
+      const currentQuantity = draft[itemIndex].quantity;
+      draft[itemIndex].quantity = increment ? currentQuantity + quantity : quantity;
     }
-
-    return item;
-  });
-};
+  } else {
+    draft.push({
+      id,
+      quantity: 1,
+      sku,
+    });
+  }
+});
 
 const cartReducer = (cart, action) => {
-  const {
-    id,
-    quantity,
-    sku,
-    type,
-  } = action;
-
+  const { type } = action;
   switch (type) {
     case 'add': {
-      const itemInCart = cart.find((item) => item.sku === sku);
-      if (itemInCart) {
-        return getItemsWithUpdatedQuantity(cart, sku, 1, true);
-      }
-
-      return [
-        ...cart,
-        {
-          id,
-          quantity: 1,
-          sku,
-        },
-      ];
+      return updateItemQuantity(cart, {
+        ...action,
+        quantity: 1,
+      }, true);
     }
 
     case 'empty': {
@@ -45,7 +38,7 @@ const cartReducer = (cart, action) => {
     }
 
     case 'update': {
-      return getItemsWithUpdatedQuantity(cart, sku, quantity);
+      return updateItemQuantity(cart, action);
     }
 
     default: {

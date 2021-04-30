@@ -6,10 +6,24 @@ import {
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const areEqual = (array1, array2) => (
-  array1.length === array2.length
-  && array1.every((value, index) => value === array2[index])
-);
+const areEqual = (array1, array2) => array1.length === array2.length
+  && array1.every((value, index) => value === array2[index]);
+
+const getAll = async (context) => {
+  const [, routes] = context.queryKey;
+  const responsePromises = routes.map((route) => fetch(`${baseUrl}${route}`).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    const requestError = new Error(response || {});
+    requestError.message = response?.statusText || 'Internal Server Error';
+    requestError.name = `${requestError.message.replaceAll(' ', '').replace(/error$/i, '')}Error`;
+    throw requestError;
+  }));
+
+  return Promise.all(responsePromises);
+};
 
 const useFetchAll = (routes) => {
   const previousRoutes = useRef([]);
@@ -44,7 +58,7 @@ const useFetchAll = (routes) => {
         setError(requestError);
       })
       .finally(() => setLoading(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // only run once
 
   return {
@@ -55,3 +69,4 @@ const useFetchAll = (routes) => {
 };
 
 export default useFetchAll;
+export { getAll };

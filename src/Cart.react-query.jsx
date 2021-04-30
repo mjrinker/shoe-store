@@ -2,9 +2,25 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
-import { getAll } from './hooks/useFetchAll';
 import Spinner from './Spinner';
 import { useCart } from './contexts/cartContext';
+import useFetchAll from './hooks/useFetchAll';
+
+const getCartProducts = async (context) => {
+  const [, ids] = context.queryKey;
+  const responsePromises = ids.map((id) => fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${id}`).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    const requestError = new Error(response || {});
+    requestError.message = response?.statusText || 'Internal Server Error';
+    requestError.name = `${requestError.message.replaceAll(' ', '').replace(/error$/i, '')}Error`;
+    throw requestError;
+  }));
+
+  return Promise.all(responsePromises);
+};
 
 const Cart = () => {
   const {
@@ -12,12 +28,12 @@ const Cart = () => {
     dispatch,
   } = useCart();
   const navigate = useNavigate();
-  const routes = cart.map((item) => `/products/${item.id}`);
+  const ids = cart.map((item) => item.id);
   const {
     data: products,
     error,
     isLoading,
-  } = useQuery(['products', routes], getAll);
+  } = useQuery(['products', ids], getCartProducts);
 
   const renderItem = (itemInCart) => {
     const {
